@@ -10,7 +10,7 @@ Terracon Hex Quest is set to be a 4 player deathmatch strategy game.
 <li>Master game development fund vault</li>
 </ul>
 
-<b>Prestige meaning:</b> Based off this you will be ranked in games leaderboard. The top players will receive larger % of fees that are split in between. The better you are at this game, the more revenue your $THEX tokens will generate. 
+<b>Prestige meaning:</b> Based off this you will be ranked in games leaderboard. The top players will receive larger % of fees that are split in between. The better you are at this game, the more revenue your $THEXQ tokens will generate. 
 
 <h2>Terracon Hex Quest minigame ERC721 token</h1>
 
