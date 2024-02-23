@@ -26,5 +26,3 @@ Players participate in a buy-in system where 4 players contributes a set amount 
 Accumulated <b>master tax vault</b> deposits are split throughout the Terracon Hex Quest prestige card holders.
 
 ![prestige nice](https://github.com/Agathonas/terracon-hex-quest/assets/158577277/a480bc9f-f539-4074-ae7d-6267fecaf3a3)
-
-<b>Prestige card can be minted ONCE you play at least 1 round of Terracon Hex Quest.</b>
