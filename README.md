@@ -44,5 +44,6 @@ It will have General name, region where general was born and ethnicity in it's m
 
 - <b>Storage for Prestige Points:</b> Each token will have associated points that can be updated. Use a mapping structure to associate each token ID with its points.
 - <b>Update Function for Prestige Points:</b> A function that allows updating the points of a specific token. This function should be restricted so that only an authorized contract (such as your future game round manager contract) can call it.
-
+- <b>Free mint for contributors:</b> A function that will allow contributors to mint their fee tokens, mainly you dev, and me designer for all this. I think allocate 337 tokens for us.
+- 
 ![prestige 7](https://github.com/Agathonas/terracon-hex-quest/assets/158577277/60b48d72-124c-43a1-b8f0-205e53490910)
