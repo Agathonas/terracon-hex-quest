@@ -35,7 +35,7 @@ It will have General name, region where general was born and ethnicity in it's m
 All the basic Core functionality of ER721 contract:
 
 - <b>Minting:</b> Functionality to mint new tokens with unique metadata (General name, region, ethnicity)
-- <b>Metadata Storage:</b> Efficient storage of token metadata within the smart contract or through a decentralized storage system (e.g., IPFS). <b>Maybe we can store simple String metadata directly on chain for each token? I prepared JSON for this for all tokens </b>
+- <b>Metadata Storage:</b> Efficient storage of token metadata within the smart contract or through a decentralized storage system (e.g., IPFS). Maybe we can store simple String metadata directly on chain for each token? I prepared JSON for this for all tokens
 - <b>Transferability:</b> Enabling secure transfers of tokens between addresses.
 - <b>Ownership Tracking:</b> Keeping track of who owns which token at any given time.
 - <b>Interoperability:</b> Ensuring the token adheres to the ERC721 standard for compatibility with wallets and marketplaces.
