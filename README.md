@@ -1,8 +1,8 @@
 # Terracon Hex Quest
 
-<h2>Project Economy & Foundation</h2>
-
 Terracon Hex Quest is set to be a 4 player deathmatch strategy game.
+
+<h2>Project Economy & Foundation</h2>
 
 <ul>
 <li>Terracon Hex Quest minigame // Prestige Token</li>
