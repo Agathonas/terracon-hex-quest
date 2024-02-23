@@ -32,7 +32,7 @@ Players will be able to mint the first evert Terracon Quest autonomous world tok
 
 It will have General name, region where general was born and ethnicity in it's metadata.
 
-All the basic Core functionality of ER721 contract:
+<h3>All the basic Core functionality of ER721 contract:</h3>
 
 - <b>Minting:</b> Functionality to mint new tokens with unique metadata (General name, region, ethnicity)
 - <b>Metadata Storage:</b> Efficient storage of token metadata within the smart contract or through a decentralized storage system (e.g., IPFS). Maybe we can store simple String metadata directly on chain for each token? I prepared JSON for this for all tokens
@@ -40,9 +40,9 @@ All the basic Core functionality of ER721 contract:
 - <b>Ownership Tracking:</b> Keeping track of who owns which token at any given time.
 - <b>Interoperability:</b> Ensuring the token adheres to the ERC721 standard for compatibility with wallets and marketplaces.
 
-Custom functionality needed:
+<h3>Custom functionality needed:</h3>
 
-- Storage for Prestige Points: Each token will have associated points that can be updated. Use a mapping structure to associate each token ID with its points.
-- Update Function for Prestige Points: A function that allows updating the points of a specific token. This function should be restricted so that only an authorized contract (such as your future game round manager contract) can call it.
+- <b>Storage for Prestige Points:</b> Each token will have associated points that can be updated. Use a mapping structure to associate each token ID with its points.
+- <b>Update Function for Prestige Points:</b> A function that allows updating the points of a specific token. This function should be restricted so that only an authorized contract (such as your future game round manager contract) can call it.
 
 ![prestige 7](https://github.com/Agathonas/terracon-hex-quest/assets/158577277/60b48d72-124c-43a1-b8f0-205e53490910)
