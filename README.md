@@ -26,4 +26,4 @@ Players participate in a buy-in system where 4 players contributes a set amount 
 
 Accumulated <b>master tax vault</b> deposits are split throughout the Terracon Hex Quest prestige card holders.
 
-![prestige resized_](https://github.com/Agathonas/terracon-hex-quest/assets/158577277/19592b9b-f6b5-4cd0-87c0-e597e7eae14b)
+![prestige 7](https://github.com/Agathonas/terracon-hex-quest/assets/158577277/60b48d72-124c-43a1-b8f0-205e53490910)
