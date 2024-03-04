@@ -1,0 +1,109 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+// Importing necessary OpenZeppelin contracts for ERC721 functionality, security, access control, cryptographic functions, and utility counters.
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
+import "@openzeppelin/contracts/utils/Counters.sol";
+
+contract TerraconHexPrestigeCard is ERC721, Ownable, ReentrancyGuard {
+    using Counters for Counters.Counter; // Utilizes OpenZeppelin's counters for token ID tracking.
+    Counters.Counter private _tokenIdCounter;
+
+    // Constant values for minting fees, supply limits, and free mint amounts.
+    uint256 public constant MINTING_FEE = 0.02 ether;
+    uint256 public constant MAX_SUPPLY = 1337;
+    uint256 public constant OWNER_FREE_MINT_AMOUNT = 337;
+    uint256 private constant WHITELIST_FREE_MINT_END = OWNER_FREE_MINT_AMOUNT + 100; // 437, end of free mint for whitelisted addresses.
+    bytes32 public merkleRoot; // Root of the Merkle tree for whitelisting addresses.
+
+    uint256 public constant PUBLIC_MINT_DELAY = 1 days; // Delay before public mint starts.
+    uint256 public mintStartTime; // Timestamp when public mint starts.
+
+    mapping(uint256 => uint256) public points; // Mapping from token ID to points.
+    mapping(address => bool) public hasMintedWhitelist; // Tracks if an address has minted under whitelist.
+
+    uint256 public constant MAX_TOKENS_PER_ADDRESS = 20; // Maximum tokens an address can mint.
+
+    bool private _adminClaimedFreeMints = false; // Tracks if admin has claimed leftover free mints.
+
+    event PointsUpdated(uint256 tokenId, uint256 points); // Event for when points are updated for a token.
+
+    constructor(address initialOwner, bytes32 _merkleRoot) ERC721("Terracon Hex Prestige Card", "HEX") Ownable(initialOwner) {
+        merkleRoot = _merkleRoot;
+        _tokenIdCounter.increment(); // Start token IDs at 1.
+        mintStartTime = block.timestamp + PUBLIC_MINT_DELAY; // Set the start time for public minting.
+        _mintOwnerTokens();
+    }
+
+    function _mintOwnerTokens() private {
+        for (uint i = 0; i < OWNER_FREE_MINT_AMOUNT; i++) {
+            _safeMint(owner(), _tokenIdCounter.current());
+            _tokenIdCounter.increment();
+        }
+    }
+
+    function mintPrestigeCard(address to) public payable nonReentrant {
+        _beforePublicMint(); // Check and perform actions before public mint.
+        require(msg.value == MINTING_FEE, "Incorrect value sent");
+        _mintToken(to, 1);
+    }
+
+    function mintPrestigeCardsBatch(address to, uint256 numberOfTokens) public payable nonReentrant {
+        _beforePublicMint(); // Check and perform actions before public mint.
+        require(numberOfTokens > 0 && numberOfTokens <= 20, "Cannot mint 0 tokens, max 20 at a time");
+        require(msg.value == MINTING_FEE * numberOfTokens, "Incorrect value sent");
+        _mintToken(to, numberOfTokens);
+    }
+
+    function mintWhitelisted(address to, bytes32[] calldata merkleProof) external nonReentrant {
+        require(_tokenIdCounter.current() <= WHITELIST_FREE_MINT_END, "Free mint period over");
+        require(!hasMintedWhitelist[to], "Address has already minted");
+
+        bytes32 leaf = keccak256(abi.encodePacked(to));
+        require(MerkleProof.verify(merkleProof, merkleRoot, leaf), "Invalid proof");
+
+        hasMintedWhitelist[to] = true;
+        _mintToken(to, 1);
+    }
+
+    function _mintToken(address to, uint256 numberOfTokens) private {
+        require(_tokenIdCounter.current() + numberOfTokens - 1 <= MAX_SUPPLY, "Max supply exceeded");
+        for (uint256 i = 0; i < numberOfTokens; i++) {
+            _safeMint(to, _tokenIdCounter.current());
+            _tokenIdCounter.increment();
+        }
+    }
+
+    function _beforePublicMint() private {
+        // Automatically claim remaining free mints for admin before starting public mint.
+        if (block.timestamp >= mintStartTime && !_adminClaimedFreeMints) {
+            uint256 remainingFreeMints = WHITELIST_FREE_MINT_END - _tokenIdCounter.current() + 1;
+            if (remainingFreeMints > 0) {
+                _mintToken(owner(), remainingFreeMints);
+            }
+            _adminClaimedFreeMints = true;
+        }
+    }
+
+    function updatePoints(uint256 tokenId, uint256 newPoints) public onlyOwner {
+        require(ownerOf(tokenId) != address(0), "ERC721: operator query for nonexistent token");
+        points[tokenId] = newPoints;
+        emit PointsUpdated(tokenId, newPoints);
+    }
+
+    function supportsInterface(bytes4 interfaceId) public view override(ERC721) returns (bool) {
+        // Leverages OpenZeppelin's implementation to check for supported interfaces.
+        return super.supportsInterface(interfaceId);
+    }
+
+    function withdraw() public onlyOwner {
+        // Allows the contract owner to withdraw the contract balance.
+        uint256 balance = address(this).balance;
+        require(balance > 0, "No funds to withdraw");
+        (bool success, ) = payable(owner()).call{value: balance}("");
+        require(success, "Transfer failed");
+    }
+}
