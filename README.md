@@ -39,6 +39,7 @@ It will have General name, region where general was born and ethnicity in it's m
 - <b>Transferability:</b> Enabling secure transfers of tokens between addresses.
 - <b>Ownership Tracking:</b> Keeping track of who owns which token at any given time.
 - <b>Interoperability:</b> Ensuring the token adheres to the ERC721 standard for compatibility with wallets and marketplaces.
+- <b>Mutable Attributes</b> As well we want to have mutable Attributes. Meaning initial Birhtplace, Ethnicity, Occupation and Special Trait can be mutable by some proxy contract in the future.
 
 <h3>Custom functionality needed:</h3>
 
