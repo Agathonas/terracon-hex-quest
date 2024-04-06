@@ -35,13 +35,14 @@ It will have General name, region where general was born and ethnicity in it's m
 <h3>All the basic Core functionality of ER721 contract:</h3>
 
 - <b>Minting:</b> Functionality to mint new tokens with unique metadata (General name, region, ethnicity)
-- <b>Metadata Storage:</b> Efficient storage of token metadata within the smart contract or through a decentralized storage system (e.g., IPFS). Maybe we can store simple String metadata directly on chain for each token? I prepared JSON for this for all tokens
+- <b>Metadata Storage onchain:</b> Efficient storage of token metadata within the smart contract or through a decentralized storage system for images (e.g., IPFS). Maybe we can store simple String metadata fields on chain? As we will want the mutable.
 - <b>Transferability:</b> Enabling secure transfers of tokens between addresses.
 - <b>Ownership Tracking:</b> Keeping track of who owns which token at any given time.
 - <b>Interoperability:</b> Ensuring the token adheres to the ERC721 standard for compatibility with wallets and marketplaces.
 - <b>Mutable Attributes</b> As well we want to have mutable Attributes. Meaning initial Birhtplace, Ethnicity, Occupation and Special Trait can be mutable by some proxy contract in the future.
+- 
 
-<h3>Custom functionality needed:</h3>
+<h3>Future Prestige Points contracts:</h3>
 
 - <b>Storage for Prestige Points:</b> Each token will have associated points that can be updated. Use a mapping structure to associate each token ID with its points.
 - <b>Update Function for Prestige Points:</b> A function that allows updating the points of a specific token. This function should be restricted so that only an authorized contract (such as your future game round manager contract) can call it.
